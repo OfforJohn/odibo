@@ -14,8 +14,8 @@ Use this JavaScript snippet to handle the "Download" button click. Replace the p
 
 ```javascript
 // Supabase Configuration
-const SUPABASE_URL = "https://ltxvswccpahqpsgaxfog.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx0eHZzd2NjcGFocXBzZ2F4Zm9nIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY5NzQ5NzQsImV4cCI6MjEwMjU1MDk3NH0.UB4b_bjgcWBHhhYmj1vv3e4rgeeIbsqcvpEN2-Xb7fM";
+const SUPABASE_URL = "https://pojluytemcjtqunipuhc.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_xWcbLt8kn7B0mildbKquMw_IALqyxgV";
 const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 async function validateAndDownload() {

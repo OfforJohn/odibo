@@ -53,8 +53,8 @@ app.use(express.static(__dirname));
 // Parse JSON bodies for the admin API
 app.use(express.json());
 
-const SUPABASE_URL = process.env.SUPABASE_URL || 'https://ltxvswccpahqpsgaxfog.supabase.co';
-const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imx0eHZzd2NjcGFocXBzZ2F4Zm9nIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY5NzQ5NzQsImV4cCI6MjEwMjU1MDk3NH0.UB4b_bjgcWBHhhYmj1vv3e4rgeeIbsqcvpEN2-Xb7fM';
+const SUPABASE_URL = process.env.SUPABASE_URL || 'https://pojluytemcjtqunipuhc.supabase.co';
+const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || 'sb_publishable_xWcbLt8kn7B0mildbKquMw_IALqyxgV';
 
 app.get('/api/security', async (req, res) => {
     try {

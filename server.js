@@ -54,7 +54,7 @@ app.use(express.static(__dirname));
 app.use(express.json());
 
 const SUPABASE_URL = process.env.SUPABASE_URL || 'https://pojluytemcjtqunipuhc.supabase.co';
-const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || 'sb_publishable_xWcbLt8kn7B0mildbKquMw_IALqyxgV';
+const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBvamx1eXRlbWNqdHF1bmlwdWhjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE1Nzc2OTcsImV4cCI6MjEwNzE1MzY5N30.PwZb2FoOBFUynhvj3VBNWMrfAa7meAM081Ma1wvR6uU';
 
 app.get('/api/security', async (req, res) => {
     try {

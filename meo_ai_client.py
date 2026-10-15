@@ -6,7 +6,7 @@ import sys
 
 # Configuration
 SERVER_URL = "http://127.0.0.1:3001"
-ROOM_ID = "199"
+ROOM_ID = "198"
 
 sio = socketio.Client(logger=True, engineio_logger=True)
 

